@@ -1,0 +1,16 @@
+src/
+├── assets/             # Static files (images, global CSS, fonts)
+├── components/         # Global, reusable UI Lego blocks (Buttons, Inputs, Cards)
+├── config/             # Global settings (API URLs, environment variables)
+├── features/           # THE CORE: Your isolated business domains
+│   ├── auth/           # Login & session logic
+│   ├── call-logs/      # AI call history and transcriptions
+│   ├── prompts/        # The system prompts that control the AI bot
+│   └── shop-data/      # Managing products and FAQs the AI reads from
+├── hooks/              # Custom React hooks (e.g., useWindowSize)
+├── layouts/            # Dashboard shells (Sidebar, Header navigation)
+├── pages/              # The actual route views that combine your features
+├── services/           # The API functions that talk to your Node.js backend
+├── utils/              # Helper functions (e.g., date formatters)
+├── App.jsx             # The main router wrap
+└── main.jsx            # The Vite entry point
