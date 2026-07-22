@@ -1,6 +1,9 @@
 src/
 ├── assets/             # Static files (images, global CSS, fonts)
-├── components/         # Global, reusable UI Lego blocks (Buttons, Inputs, Cards)
+├── components/   
+│   ├── Navbar.jsx         # Login & session logic
+│   ├── Home.jsx     # AI call history and transcriptions
+│   ├── Help.jsx        # The system prompts that control the AI bot      # Global, reusable UI Lego blocks (Buttons, Inputs, Cards)
 ├── config/             # Global settings (API URLs, environment variables)
 ├── features/           # THE CORE: Your isolated business domains
 │   ├── auth/           # Login & session logic
