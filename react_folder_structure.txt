@@ -1,5 +1,8 @@
 src/
 ├── assets/             # Static files (images, global CSS, fonts)
+├── admin/   
+│   ├── components/
+        ├── Navbar.jsx         # Login & session logic   # AI call history and transcriptions
 ├── components/   
 │   ├── Navbar.jsx         # Login & session logic
 │   ├── Home.jsx     # AI call history and transcriptions
