@@ -6,6 +6,7 @@ import voiceRoutes from './routes/voice.js'; // The .js extension is mandatory i
 import adminUserRoutes from './admin/users.js';
 import adminProductRoutes from './admin/products.js';
 import adminOrderRoutes from './admin/orders.js';
+import adminIvrRoutes from './admin/ivr.js';
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use('/api/voice', voiceRoutes);
 app.use('/api/admin/users', adminUserRoutes);
 app.use('/api/admin/products', adminProductRoutes);
 app.use('/api/admin/orders', adminOrderRoutes);
+app.use('/api/admin/ivr', adminIvrRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
