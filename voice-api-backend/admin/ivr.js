@@ -15,11 +15,11 @@ router.get('/', async (req, res) => {
 
 // CREATE: Add a new menu option
 router.post('/', async (req, res) => {
-    const { digit, label, message, action_type, is_active } = req.body;
+    const { digit, label, message_english, message_tamil, action_type, is_active } = req.body;
     try {
         await pool.query(
-            'INSERT INTO ivr_menus (digit, label, message, action_type, is_active) VALUES (?, ?, ?, ?, ?)',
-            [digit, label, message, action_type, is_active]
+            'INSERT INTO ivr_menus (digit, label, message_english, message_tamil, action_type, is_active) VALUES (?, ?, ?, ?, ?, ?)',
+            [digit, label, message_english, message_tamil, action_type, is_active]
         );
         res.json({ success: true, message: 'Menu added successfully' });
     } catch (error) {
@@ -30,11 +30,11 @@ router.post('/', async (req, res) => {
 
 // UPDATE: Edit an existing menu option
 router.put('/:id', async (req, res) => {
-    const { digit, label, message, action_type, is_active } = req.body;
+    const { digit, label, message_english, message_tamil, action_type, is_active } = req.body;
     try {
         await pool.query(
-            'UPDATE ivr_menus SET digit=?, label=?, message=?, action_type=?, is_active=? WHERE id=?',
-            [digit, label, message, action_type, is_active, req.params.id]
+            'UPDATE ivr_menus SET digit=?, label=?, message_english=?, message_tamil=?, action_type=?, is_active=? WHERE id=?',
+            [digit, label, message_english, message_tamil, action_type, is_active, req.params.id]
         );
         res.json({ success: true, message: 'Menu updated successfully' });
     } catch (error) {

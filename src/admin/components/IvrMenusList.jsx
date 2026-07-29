@@ -6,10 +6,9 @@ export default function IvrMenusList() {
   const [error, setError] = useState('');
   
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formData, setFormData] = useState({ digit: '', label: '', message: '', action_type: '', is_active: true });
+  const [formData, setFormData] = useState({ digit: '', label: '', message_english: '', message_tamil: '', action_type: '', is_active: true });
   const [editId, setEditId] = useState(null);
 
-// 1. The perfectly compliant useCallback function
   const fetchMenus = useCallback(async () => {
     try {
       const response = await fetch('http://localhost:3000/api/admin/ivr');
@@ -18,28 +17,33 @@ export default function IvrMenusList() {
         setMenus(data.menus);
       }
     } catch (err) {
-        console.log(err)
+      console.log(err);
       setError('Server connection failed.');
     }
-  }, [setMenus, setError]); // <-- We added the state setters here!
+  }, [setMenus, setError]); 
 
-  // 2. The perfectly compliant useEffect
-useEffect(() => {
-  async function load() {
-    await fetchMenus();
-  }
-
-  load();
-}, [fetchMenus]); // <-- The linter now accepts this perfectly.
+  useEffect(() => {
+    async function load() {
+      await fetchMenus();
+    }
+    load();
+  }, [fetchMenus]); 
 
   const handleAddNew = () => {
-    setFormData({ digit: '', label: '', message: '', action_type: '', is_active: true });
+    setFormData({ digit: '', label: '', message_english: '', message_tamil: '', action_type: '', is_active: true });
     setEditId(null);
     setIsModalOpen(true);
   };
 
   const handleEdit = (menu) => {
-    setFormData({ digit: menu.digit, label: menu.label, message: menu.message, action_type: menu.action_type, is_active: menu.is_active });
+    setFormData({ 
+      digit: menu.digit, 
+      label: menu.label, 
+      message_english: menu.message_english, 
+      message_tamil: menu.message_tamil, 
+      action_type: menu.action_type, 
+      is_active: menu.is_active 
+    });
     setEditId(menu.id);
     setIsModalOpen(true);
   };
@@ -64,7 +68,7 @@ useEffect(() => {
         alert(data.message);
       }
     } catch (err) {
-        console.log(err)
+      console.log(err);
       alert('Error saving menu.');
     }
   };
@@ -75,7 +79,7 @@ useEffect(() => {
         await fetch(`http://localhost:3000/api/admin/ivr/${id}`, { method: 'DELETE' });
         fetchMenus();
       } catch (err) {
-        console.log(err)
+        console.log(err);
         alert('Error deleting menu.');
       }
     }
@@ -149,8 +153,13 @@ useEffect(() => {
               </div>
 
               <div>
-                <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '5px' }}>Voice Message (What the AI says)</label>
-                <textarea value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})} required rows="3" style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ccc', resize: 'vertical' }}></textarea>
+                <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '5px' }}>English Voice Message</label>
+                <textarea value={formData.message_english} onChange={(e) => setFormData({...formData, message_english: e.target.value})} required rows="2" style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ccc', resize: 'vertical' }}></textarea>
+              </div>
+
+              <div>
+                <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '5px' }}>Tamil Voice Message</label>
+                <textarea value={formData.message_tamil} onChange={(e) => setFormData({...formData, message_tamil: e.target.value})} required rows="2" style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ccc', resize: 'vertical' }}></textarea>
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
