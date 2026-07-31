@@ -44,4 +44,26 @@ router.get('/', async (req, res) => {
     }
 });
 
+// ==========================================
+// ADMIN BLOCK: Update Order Status
+// ==========================================
+router.post('/update-status', async (req, res) => {
+    const { orderId, status } = req.body;
+
+    if (!orderId || !status) {
+        return res.status(400).json({ success: false, message: 'Missing orderId or status' });
+    }
+
+    try {
+        await pool.query(
+            "UPDATE orders SET order_status = ? WHERE id = ?", 
+            [status, orderId]
+        );
+        res.json({ success: true, message: 'Status updated successfully' });
+    } catch (error) {
+        console.error("Admin Status Update Error:", error);
+        res.status(500).json({ success: false, message: 'Database update failed' });
+    }
+});
+
 export default router;

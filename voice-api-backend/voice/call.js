@@ -94,8 +94,16 @@ router.post('/process-digit', async (req, res) => {
         const actionType = menuItem[0].action_type;
         let xmlResponse = '';
 
-        switch (actionType) {
+       switch (actionType) {
             case 'check_order':
+                // Redirect straight to our new DTMF (Keypad) block
+                xmlResponse = `
+                    <Response>
+                        <Redirect method="POST">/api/voice/order-status?lang=${voiceLang}</Redirect>
+                    </Response>
+                `;
+                break;
+
             case 'cancel_order':
             case 'delivery_issue':
                 const aiPrompt = isTamil
@@ -125,15 +133,15 @@ router.post('/process-digit', async (req, res) => {
                 `;
                 break;
 
-            case 'transfer_agent':
+           case 'transfer_agent':
                 const transferMsg = isTamil
-                    ? 'எங்கள் வாடிக்கையாளர் சேவை அலுவலருக்கு இணைக்கப்படுகிறது. காத்திருக்கவும்.'
-                    : 'Transferring to a customer support agent. Please wait.';
+                    ? 'நீங்கள் மனித வாடிக்கையாளர் சேவையைத் தேர்ந்தெடுத்துள்ளீர்கள். எங்கள் வாடிக்கையாளர் சேவை குழுவிற்கு இணைக்கப்படுகிறது. காத்திருக்கவும்.'
+                    : 'You requested human customer support. Connecting to our customer support team. Please wait.';
                 
                 xmlResponse = `
                     <Response>
                         <Say ${voiceAttr} language="${voiceLang}">${transferMsg}</Say>
-                        <Dial>+919876543210</Dial>
+                        <Dial>+919361343013</Dial>
                     </Response>
                 `;
                 break;

@@ -21,6 +21,29 @@ export default function OrdersList() {
     fetchOrders();
   }, []);
 
+  // Put this right above the 'return ('
+  const handleStatusChange = async (orderId, newStatus) => {
+    try {
+     const response = await fetch('http://localhost:3000/api/admin/orders/update-status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ orderId, status: newStatus })
+      });
+      const data = await response.json();
+      
+      if (data.success) {
+        // Instantly update the React state so the UI changes without refreshing
+        setOrders(orders.map(o => o.id === orderId ? { ...o, order_status: newStatus } : o));
+        alert(`Order #${orderId} updated to ${newStatus}`);
+      } else {
+        alert('Failed to update status.');
+      }
+    } catch (err) {
+      console.error('Update failed:', err);
+      alert('Server connection failed while updating.');
+    }
+  };
+
   return (
     <div className="admin-table-container">
       {error && <p style={{ color: 'red', padding: '15px' }}>{error}</p>}
@@ -45,7 +68,17 @@ export default function OrdersList() {
               <td>{order.order_date.split(' ')[0]}</td>
               <td style={{ fontWeight: 'bold' }}>₹{order.total_amount}</td>
               <td>
-                <span className={`badge ${order.order_status}`}>{order.order_status}</span>
+                <select 
+                  value={order.order_status} 
+                  onChange={(e) => handleStatusChange(order.id, e.target.value)}
+                  className={`badge ${order.order_status}`}
+                  style={{ cursor: 'pointer', padding: '5px' }}
+                >
+                  <option value="placed">placed</option>
+                  <option value="shipped">shipped</option>
+                  <option value="delivered">delivered</option>
+                  <option value="cancelled">cancelled</option>
+                </select>
               </td>
               <td>
                 <button 

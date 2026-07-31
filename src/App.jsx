@@ -8,6 +8,7 @@ import UsersList from './admin/components/UsersList';
 import ProductsList from './admin/components/ProductsList';
 import OrdersList from './admin/components/OrdersList';
 import IvrMenusList from './admin/components/IvrMenusList';
+import Settings from './admin/components/Settings';
 
 export default function App() {
   return (
@@ -28,6 +29,7 @@ export default function App() {
           <Route path="products" element={<ProductsList />} />
           <Route path="orders" element={<OrdersList />} />
           <Route path="ivr-menus" element={<IvrMenusList />} />
+          <Route path="settings" element={<Settings />} />
         </Route>
       </Routes>
     </Router>

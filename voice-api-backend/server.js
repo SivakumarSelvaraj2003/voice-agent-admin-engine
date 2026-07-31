@@ -9,6 +9,8 @@ import adminProductRoutes from './admin/products.js';
 import adminOrderRoutes from './admin/orders.js';
 import adminIvrRoutes from './admin/ivr.js';
 import aiAssistantRoutes from './voice/ai-assistant.js';
+import orderStatusRoutes from './voice/order-status.js';
+import settingsRoutes from './admin/settings.js'
 
 // Import Voice Webhook
 import voiceRoutes from './voice/call.js';
@@ -29,6 +31,8 @@ app.use('/api/admin/products', adminProductRoutes);
 app.use('/api/admin/orders', adminOrderRoutes);
 app.use('/api/admin/ivr', adminIvrRoutes);
 app.use('/api/voice/ai-assistant', aiAssistantRoutes);
+app.use('/api/voice/order-status', orderStatusRoutes);
+app.use('/api/admin/settings', settingsRoutes);
 
 // Mount the Public Voice API Block
 app.use('/api/voice', voiceRoutes);

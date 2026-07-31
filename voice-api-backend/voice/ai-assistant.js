@@ -1,6 +1,7 @@
 import express from 'express';
 import pool from '../config/db.js';
 import { GoogleGenAI } from '@google/genai';
+import { testState } from '../config/testState.js';
 
 const router = express.Router();
 
@@ -13,7 +14,7 @@ router.post('/', async (req, res) => {
 
     // Capture Twilio Data
     const speechResult = req.body.SpeechResult || '';
-    const callerPhone = '+919876543212'; // Hardcoded User 3 for testing
+   const callerPhone = testState.callerPhone; // Pulled dynamically from your Settings page!
     const voiceLang = req.query.lang || 'en-IN';
     const isTamil = voiceLang === 'ta-IN';
     const voiceAttr = isTamil ? 'voice="Google.ta-IN-Wavenet-A"' : '';
